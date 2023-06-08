@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather/screens/details_page.dart';
 import 'package:weather/screens/result_page.dart';
-
-import 'home_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({

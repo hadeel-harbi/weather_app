@@ -20,8 +20,10 @@ class DetailsPage extends StatelessWidget {
               : currentWeather.current!.isDay! == 1
                   ? gradientColorsBackgroundLight
                   : gradientColorsBackgroundDark,
-          Center(
-            child: WeatherDetails(currentWeather: currentWeather),
+          SafeArea(
+            child: Center(
+              child: WeatherDetails(currentWeather: currentWeather),
+            ),
           ),
         ],
       ),
