@@ -7,6 +7,7 @@ import 'package:weather/components/city_weather_card.dart';
 import 'package:weather/extensions/context.dart';
 import 'package:weather/models/weather.dart';
 import 'package:weather/screens/details_page.dart';
+import '../components/search_textField.dart';
 import '../constants/constants.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,9 +20,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isSearching = false;
   Weather currentWeather = Weather();
 
-  List<String> cities = ['Riyadh', ' Jeddah', 'London', 'Seoul', 'Miami'];
+  List<String> cities = [
+    'Riyadh',
+    ' Jeddah',
+    'London',
+    'Seoul',
+    'Paris',
+    'Miami'
+  ];
   List<Weather> weatherOfCities = [];
 
   Future getWeather() async {
@@ -46,40 +55,46 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  final TextEditingController textController = TextEditingController();
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 125, 91, 188),
       body: Stack(
         children: [
-          gradientColorsBackgroundLight,
-          Center(
-            child: SafeArea(
-                bottom: false,
-                child: currentWeather.location == null
-                    ? const CircularProgressIndicator()
-                    : citiesListView()),
+          gradientColorsBackgroundLight, // <- background color
+          SafeArea(
+            bottom: false,
+            child: ListView(
+              children: [
+                // ------------- Search TextField
+                SearchTextField(
+                  textController: textController,
+                ),
+                // ------------- Cities List View
+                currentWeather.location == null
+                    ? const Center(child: CircularProgressIndicator())
+                    : citiesListView(),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  ListView citiesListView() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: weatherOfCities.length,
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-            onTap: () {
-              context.pushPage(DetailsPage(
-                currentWeather: weatherOfCities[index],
-              ));
-            },
-            child: CityWeatherCard(
-              currentWeather: weatherOfCities[index],
-            ));
-      },
+  Column citiesListView() {
+    return Column(
+      children: weatherOfCities
+          .map((value) => CityWeatherCard(currentWeather: value))
+          .toList(),
     );
   }
 }
