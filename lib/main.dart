@@ -18,7 +18,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   int currentIndex = 0;
 
-  List myScreenList = [const HomePage(city: 'Riyadh'), const SearchPage()];
+  List myScreenList = [const HomePage(), const SearchPage()];
 
   @override
   Widget build(BuildContext context) {
