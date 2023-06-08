@@ -6,7 +6,7 @@ final gradientColorsBackgroundLight = Container(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        Color.fromARGB(255, 79, 194, 252),
+        Color.fromRGBO(79, 194, 252, 1),
         Color.fromARGB(255, 125, 91, 188),
       ],
     ),

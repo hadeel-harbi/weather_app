@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/extensions/context.dart';
 
 import '../constants/constants.dart';
 import '../models/weather.dart';
@@ -16,9 +17,27 @@ class WeatherDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          "Weather",
-          style: TextStyle(fontSize: 20, color: Colors.white),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: () {
+                context.popPage;
+              },
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const Text(
+              "Weather",
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            width24,
+          ],
         ),
         height48,
         Text(

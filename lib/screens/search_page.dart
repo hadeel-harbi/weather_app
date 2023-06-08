@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather/screens/details_page.dart';
+import 'package:weather/screens/result_page.dart';
 
 import 'home_page.dart';
 
@@ -35,6 +37,7 @@ class _SearchPageState extends State<SearchPage> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
+            style: const TextStyle(color: Colors.white),
             controller: textController,
             decoration: const InputDecoration(
               filled: true,
@@ -50,9 +53,10 @@ class _SearchPageState extends State<SearchPage> {
         ElevatedButton(
           onPressed: () {
             Navigator.push(
+              //<--- Search button
               context,
               MaterialPageRoute(
-                  builder: (context) => HomePage(city: textController.text)),
+                  builder: (context) => ResultPage(city: textController.text)),
             );
           },
           style: ElevatedButton.styleFrom(
