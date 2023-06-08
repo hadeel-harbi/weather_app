@@ -13,12 +13,14 @@ class ResultPage extends StatefulWidget {
     required this.city,
   });
   final String? city;
+
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
   Weather currentWeather = Weather();
+  bool weatherIsNull = false;
 
   Future getWeather(String city) async {
     final baseUrl =
@@ -29,6 +31,9 @@ class _ResultPageState extends State<ResultPage> {
     currentWeather = Weather.fromJson(jsonValue);
 
     log(currentWeather.toJson().toString());
+    if (currentWeather.current == null) {
+      weatherIsNull = true;
+    }
 
     setState(() {});
   }
