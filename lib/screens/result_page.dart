@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:weather/extensions/context.dart';
 import 'package:weather/models/weather.dart';
 import '../components/weather_details.dart';
 import '../constants/constants.dart';
@@ -27,12 +28,16 @@ class _ResultPageState extends State<ResultPage> {
         'http://api.weatherapi.com/v1/current.json?key=d3ae5969d9a6446bbf5141451230706&q=$city';
     final url = Uri.parse(baseUrl);
     final request = await http.get(url);
-    final jsonValue = jsonDecode(request.body);
+    final Map<String, dynamic> jsonValue = jsonDecode(request.body);
     currentWeather = Weather.fromJson(jsonValue);
-
     log(currentWeather.toJson().toString());
+
+    // if city not found
     if (currentWeather.current == null) {
-      weatherIsNull = true;
+      if (jsonValue['error']['code'] == 1006) {
+        weatherIsNull = true;
+        setState(() {});
+      }
     }
 
     setState(() {});
@@ -40,7 +45,7 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   void initState() {
-    String city = widget.city ?? 'Riyadh';
+    String city = widget.city ?? '';
     getWeather(city);
     super.initState();
   }
@@ -59,11 +64,33 @@ class _ResultPageState extends State<ResultPage> {
           Center(
             child: SafeArea(
               bottom: false,
-              child: currentWeather.location == null
-                  ? const CircularProgressIndicator()
-                  : WeatherDetails(currentWeather: currentWeather),
+              child: weatherIsNull == true
+                  ? notFound()
+                  : currentWeather.location == null
+                      ? const CircularProgressIndicator()
+                      : WeatherDetails(currentWeather: currentWeather),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget notFound() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            "Sorry Not Found",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          height8,
+          ElevatedButton(
+              onPressed: () {
+                context.popPage;
+              },
+              child: const Text("Go Back"))
         ],
       ),
     );

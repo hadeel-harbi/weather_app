@@ -4,9 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather/components/city_weather_card.dart';
-import 'package:weather/extensions/context.dart';
 import 'package:weather/models/weather.dart';
-import 'package:weather/screens/details_page.dart';
 import '../components/search_textField.dart';
 import '../constants/constants.dart';
 
