@@ -3,7 +3,7 @@ import 'package:weather/extensions/context.dart';
 import 'package:weather/models/weather.dart';
 
 import '../constants/constants.dart';
-import '../screens/details_page.dart';
+import '../screens/weather_details_page.dart';
 import 'weather_images.dart';
 
 class CityWeatherCard extends StatelessWidget {
@@ -15,16 +15,14 @@ class CityWeatherCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Card(
-        color: Color.fromRGBO(247, 252, 255, 0.328),
+        color: const Color.fromRGBO(247, 252, 255, 0.328),
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
         child: InkWell(
           onTap: () {
-            context.pushPage(DetailsPage(
-              currentWeather: currentWeather,
-            ));
+            context.pushPage(WeatherDetails(currentWeather: currentWeather));
           },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(32, 16, 0, 8),
@@ -40,7 +38,7 @@ class CityWeatherCard extends StatelessWidget {
                       Text(
                         currentWeather.location!.name!, // <-------- name
                         style: const TextStyle(
-                          color: Colors.black54,
+                          color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.w500,
                         ),

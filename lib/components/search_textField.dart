@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:weather/extensions/context.dart';
-import 'package:weather/screens/result_page.dart';
+import 'package:weather/models/weather.dart';
+import 'package:weather/screens/get_weather.dart';
 
-class SearchTextField extends StatelessWidget {
+class SearchTextField extends StatefulWidget {
   const SearchTextField({
     super.key,
-    required this.textController,
   });
 
-  final TextEditingController textController;
+  @override
+  State<SearchTextField> createState() => _SearchTextFieldState();
+}
+
+class _SearchTextFieldState extends State<SearchTextField> {
+  final TextEditingController textController = TextEditingController();
+  Weather currentWeather = Weather();
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,33 +28,26 @@ class SearchTextField extends StatelessWidget {
       child: TextField(
         style: const TextStyle(color: Colors.white),
         controller: textController,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           filled: true,
-          fillColor: const Color.fromRGBO(247, 252, 255, 0.328),
-          border: const OutlineInputBorder(
+          fillColor: Color.fromRGBO(247, 252, 255, 0.328),
+          border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(Radius.circular(20))),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           hintText: 'Enter City ',
-          hintStyle: const TextStyle(color: Colors.white),
-          prefix: const Icon(
+          hintStyle: TextStyle(color: Colors.white),
+          prefix: Icon(
             // <-- Search icon
             Icons.search,
             color: Colors.white,
           ),
-          suffix: InkWell(
-            onTap: () {
-              context.pushPage(ResultPage(
-                city: textController.text,
-              ));
-            },
-            child: const Text(
-              "Search",
-              style: TextStyle(color: Color.fromARGB(255, 97, 75, 157)),
-            ),
-          ),
         ),
+        onSubmitted: (text) {
+          context.pushPage(
+            GetWeatherPage(city: text),
+          );
+        },
       ),
     );
   }

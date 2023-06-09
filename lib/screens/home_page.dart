@@ -1,12 +1,9 @@
-import 'dart:convert';
-
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:weather/components/city_weather_card.dart';
-import 'package:weather/models/weather.dart';
 import '../components/search_textField.dart';
 import '../constants/constants.dart';
+import '../data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -14,53 +11,10 @@ class HomePage extends StatefulWidget {
   });
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  bool isSearching = false;
-  Weather currentWeather = Weather();
-
-  List<String> cities = [
-    'Riyadh',
-    ' Jeddah',
-    'London',
-    'Seoul',
-    'Paris',
-    'Miami'
-  ];
-  List<Weather> weatherOfCities = [];
-
-  Future getWeather() async {
-    for (String city in cities) {
-      log(city);
-      final baseUrl =
-          'http://api.weatherapi.com/v1/current.json?key=d3ae5969d9a6446bbf5141451230706&q=$city';
-      final url = Uri.parse(baseUrl);
-      final request = await http.get(url);
-      final jsonValue = jsonDecode(request.body);
-      currentWeather = Weather.fromJson(jsonValue);
-      weatherOfCities.add(currentWeather);
-      log(currentWeather.toJson().toString());
-    }
-
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    getWeather();
-    super.initState();
-  }
-
-  final TextEditingController textController = TextEditingController();
-
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
+class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,13 +27,11 @@ class _HomePageState extends State<HomePage> {
             child: ListView(
               children: [
                 // ------------- Search TextField
-                SearchTextField(
-                  textController: textController,
-                ),
+                const SearchTextField(),
+
                 // ------------- Cities List View
-                currentWeather.location == null
-                    ? const Center(child: CircularProgressIndicator())
-                    : citiesListView(),
+
+                citiesListView(),
               ],
             ),
           ),
@@ -90,7 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   Column citiesListView() {
     return Column(
-      children: weatherOfCities
+      children: Data.weatherOfCities
           .map((value) => CityWeatherCard(currentWeather: value))
           .toList(),
     );
