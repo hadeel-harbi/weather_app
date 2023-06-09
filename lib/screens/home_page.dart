@@ -18,21 +18,30 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 125, 91, 188),
       body: Stack(
         children: [
           gradientColorsBackgroundLight, // <- background color
           SafeArea(
             bottom: false,
-            child: ListView(
-              children: [
-                // ------------- Search TextField
-                const SearchTextField(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListView(
+                children: [
+                  // ------------- Text
+                  const Text(
+                    "Weather",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  // ------------- Search TextField
+                  const SearchTextField(),
 
-                // ------------- Cities List View
-
-                citiesListView(),
-              ],
+                  // ------------- Cities List View
+                  citiesListView(),
+                ],
+              ),
             ),
           ),
         ],

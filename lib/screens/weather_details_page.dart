@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather/extensions/context.dart';
-import 'package:weather/screens/home_page.dart';
-
+import '../components/details_app_bar.dart';
 import '../constants/constants.dart';
-import '../data.dart';
+
 import '../models/weather.dart';
 import '../components/weather_images.dart';
 
@@ -20,7 +18,7 @@ class WeatherDetails extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // set background
+          // set background color if day or night
           currentWeather.current?.isDay == null
               ? gradientColorsBackgroundLight
               : currentWeather.current!.isDay! == 1
@@ -29,41 +27,7 @@ class WeatherDetails extends StatelessWidget {
           SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          context.popPage;
-                        },
-                        child: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Text(
-                        "Weather",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Data.weatherOfCities.add(currentWeather);
-                          context
-                              .findRootAncestorStateOfType<HomePageState>()
-                              // ignore: invalid_use_of_protected_member
-                              ?.setState(() {});
-                          context.pushPage(const HomePage());
-                        },
-                        child: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                DetailsAppBar(currentWeather: currentWeather), // <-- AppBar
                 height48,
                 Text(
                   currentWeather.location!.name!, // <-- city
@@ -74,7 +38,7 @@ class WeatherDetails extends StatelessWidget {
                 ),
                 height8,
                 Text(
-                  currentWeather.location!.localtime!,
+                  currentWeather.location!.localtime!, // <-- date & time
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
@@ -104,6 +68,7 @@ class WeatherDetails extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 height56,
+                // --------------- more weather details
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

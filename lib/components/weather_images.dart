@@ -32,6 +32,8 @@ Widget getWeatherImage(Weather currentWeather) {
     case 1192:
     case 1195:
     case 1198:
+    case 1276:
+    case 1273:
       imageText = "Rainy";
     case 1066:
     case 1114:

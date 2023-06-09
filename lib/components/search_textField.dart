@@ -24,7 +24,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         style: const TextStyle(color: Colors.white),
         controller: textController,
@@ -37,10 +37,13 @@ class _SearchTextFieldState extends State<SearchTextField> {
           contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           hintText: 'Enter City ',
           hintStyle: TextStyle(color: Colors.white),
-          prefix: Icon(
-            // <-- Search icon
-            Icons.search,
-            color: Colors.white,
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(left: 8),
+            child: Icon(
+              // <-- Search icon
+              Icons.search,
+              color: Colors.white,
+            ),
           ),
         ),
         onSubmitted: (text) {

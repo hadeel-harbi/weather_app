@@ -12,59 +12,65 @@ class CityWeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: Card(
-        color: const Color.fromRGBO(247, 252, 255, 0.328),
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: InkWell(
-          onTap: () {
-            context.pushPage(WeatherDetails(currentWeather: currentWeather));
-          },
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(32, 16, 0, 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        currentWeather.location!.name!, // <-------- name
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                        ),
+    return Container(
+      width: 380,
+      height: 160,
+      child: InkWell(
+        onTap: () {
+          context.pushPage(WeatherDetails(
+            currentWeather: currentWeather,
+          ));
+        },
+        child: Stack(
+          children: [
+            // set background color if day or night
+            currentWeather.current!.isDay! == 1
+                ? gradientColorsCardLight
+                : gradientColorsCardDark,
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 24),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Expanded(flex: 1, child: width8),
+                    Expanded(
+                      flex: 4,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            currentWeather.location!.name!, // <---- name
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            "${(currentWeather.current!.tempC)?.toInt()}\u00b0", // <---- degree
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      height8,
-                      Text(
-                        "${(currentWeather.current!.tempC)?.toInt()}\u00b0", // <-------- degree
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                width32,
-                Expanded(
-                  flex: 1,
-
-                  child: getWeatherImage(currentWeather), // <-------- image
-                ),
-                width16
-              ],
+                    ),
+                    const Expanded(flex: 1, child: width16)
+                  ]),
             ),
-          ),
+            Positioned(
+              top: -20,
+              right: -13,
+              child: SizedBox(
+                width: 180,
+                height: 180,
+                child: getWeatherImage(currentWeather), // <---- image
+              ),
+            ),
+          ],
         ),
       ),
     );

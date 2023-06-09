@@ -6,8 +6,8 @@ final gradientColorsBackgroundLight = Container(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        Color.fromRGBO(79, 194, 252, 1),
-        Color.fromARGB(255, 125, 91, 188),
+        Color.fromRGBO(118, 209, 255, 1),
+        Color.fromARGB(255, 80, 93, 214),
       ],
     ),
   ),
@@ -21,6 +21,52 @@ final gradientColorsBackgroundDark = Container(
       colors: [
         Color.fromARGB(255, 11, 28, 115),
         Color.fromARGB(255, 125, 91, 188),
+      ],
+    ),
+  ),
+);
+
+final gradientColorsCardLight = Container(
+  margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+  decoration: BoxDecoration(
+    boxShadow: const [
+      BoxShadow(
+        color: Color.fromARGB(107, 54, 82, 116),
+        spreadRadius: 0,
+        blurRadius: 11,
+        offset: Offset(6, 6),
+      ),
+    ],
+    borderRadius: BorderRadius.circular(30),
+    gradient: const LinearGradient(
+      begin: Alignment.topRight,
+      end: Alignment.bottomLeft,
+      colors: [
+        Color.fromRGBO(174, 239, 255, 1),
+        Color.fromARGB(255, 26, 146, 237),
+      ],
+    ),
+  ),
+);
+
+final gradientColorsCardDark = Container(
+  margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+  decoration: BoxDecoration(
+    boxShadow: const [
+      BoxShadow(
+        color: Color.fromARGB(107, 54, 82, 116),
+        spreadRadius: 0,
+        blurRadius: 11,
+        offset: Offset(6, 6),
+      ),
+    ],
+    borderRadius: BorderRadius.circular(30),
+    gradient: const LinearGradient(
+      begin: Alignment.topRight,
+      end: Alignment.bottomLeft,
+      colors: [
+        Color.fromRGBO(143, 199, 255, 1),
+        Color.fromARGB(255, 35, 42, 175),
       ],
     ),
   ),

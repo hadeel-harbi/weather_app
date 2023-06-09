@@ -1,14 +1,16 @@
 class Weather {
   Location? location;
   Current? current;
+  Error? error;
 
-  Weather({this.location, this.current});
+  Weather({this.location, this.current, this.error});
 
   Weather.fromJson(Map<String, dynamic> json) {
     location =
         json['location'] != null ? Location.fromJson(json['location']) : null;
     current =
         json['current'] != null ? Current.fromJson(json['current']) : null;
+    error = json['error'] != null ? Error.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -18,6 +20,9 @@ class Weather {
     }
     if (current != null) {
       data['current'] = current!.toJson();
+    }
+    if (error != null) {
+      data['error'] = error!.toJson();
     }
     return data;
   }
@@ -35,7 +40,7 @@ class Location {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['localtime'] = localtime;
     return data;
@@ -79,6 +84,7 @@ class Current {
     data['wind_kph'] = windKph;
     data['humidity'] = humidity;
     data['precip_in'] = precipIn;
+
     return data;
   }
 }
@@ -97,6 +103,22 @@ class Condition {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['text'] = text;
+    data['code'] = code;
+    return data;
+  }
+}
+
+class Error {
+  int? code;
+
+  Error({this.code});
+
+  Error.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['code'] = code;
     return data;
   }
