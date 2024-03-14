@@ -20,7 +20,7 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       body: Stack(
         children: [
-          gradientColorsBackgroundLight, // <- background color
+          gradientColorsBackground, // <- background color
           SafeArea(
             bottom: false,
             child: Padding(

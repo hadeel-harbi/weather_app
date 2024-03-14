@@ -28,9 +28,10 @@ class _SearchTextFieldState extends State<SearchTextField> {
       child: TextField(
         style: const TextStyle(color: Colors.white),
         controller: textController,
+        cursorColor: Colors.white,
         decoration: const InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(247, 252, 255, 0.328),
+          fillColor: Color.fromRGBO(255, 255, 255, 0.173),
           border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(Radius.circular(20))),

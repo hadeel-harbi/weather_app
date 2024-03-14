@@ -21,3 +21,12 @@ flutter:
 
   assets:
     - lib/assets/images/
+  fonts:
+    - family: Encode Sans
+      fonts:
+        - asset: assets/fonts/EncodeSansExpanded-Light.ttf
+          weight: 300
+        - asset: assets/fonts/EncodeSansExpanded-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/EncodeSansExpanded-SemiBold.ttf
+          weight: 600

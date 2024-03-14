@@ -19,57 +19,41 @@ final gradientColorsBackgroundDark = Container(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        Color.fromARGB(255, 11, 28, 115),
         Color.fromARGB(255, 125, 91, 188),
+        Color.fromARGB(255, 11, 28, 115),
       ],
     ),
   ),
 );
 
-final gradientColorsCardLight = Container(
-  margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
-  decoration: BoxDecoration(
-    boxShadow: const [
-      BoxShadow(
-        color: Color.fromARGB(107, 54, 82, 116),
-        spreadRadius: 0,
-        blurRadius: 11,
-        offset: Offset(6, 6),
-      ),
-    ],
-    borderRadius: BorderRadius.circular(30),
-    gradient: const LinearGradient(
-      begin: Alignment.topRight,
-      end: Alignment.bottomLeft,
+final gradientColorsBackground = Container(
+  decoration: const BoxDecoration(
+    gradient: LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
       colors: [
-        Color.fromRGBO(174, 239, 255, 1),
-        Color.fromARGB(255, 26, 146, 237),
+        Color.fromRGBO(49, 69, 151, 1),
+        Color.fromARGB(255, 33, 37, 78),
       ],
     ),
   ),
 );
+const gradientColorsCardLight = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [
+    Color.fromARGB(255, 72, 79, 181),
+    Color.fromARGB(255, 78, 140, 227),
+  ],
+);
 
-final gradientColorsCardDark = Container(
-  margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
-  decoration: BoxDecoration(
-    boxShadow: const [
-      BoxShadow(
-        color: Color.fromARGB(107, 54, 82, 116),
-        spreadRadius: 0,
-        blurRadius: 11,
-        offset: Offset(6, 6),
-      ),
-    ],
-    borderRadius: BorderRadius.circular(30),
-    gradient: const LinearGradient(
-      begin: Alignment.topRight,
-      end: Alignment.bottomLeft,
-      colors: [
-        Color.fromRGBO(143, 199, 255, 1),
-        Color.fromARGB(255, 35, 42, 175),
-      ],
-    ),
-  ),
+const gradientColorsCardDark = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [
+    Color.fromARGB(255, 97, 83, 166),
+    Color.fromARGB(255, 11, 28, 115),
+  ],
 );
 
 const height8 = SizedBox(height: 8);

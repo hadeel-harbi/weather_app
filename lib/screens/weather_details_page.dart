@@ -46,19 +46,21 @@ class WeatherDetails extends StatelessWidget {
                 ),
                 height24,
                 SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: getWeatherImage(currentWeather), // <-- get image
+                  height: 150,
+                  width: 150,
+                  child: getWeatherImage(
+                      currentWeather.current!.condition!.code!,
+                      currentWeather.current!.isDay!), // <-- get image
                 ),
-                height8,
+
                 Text(
                   '${(currentWeather.current!.tempC)?.toInt()}\u00b0', // <-- weather degree
                   style: const TextStyle(
-                      fontSize: 52,
+                      fontSize: 60,
                       color: Colors.white,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.w700),
                 ),
-                height8,
+
                 Text(
                   currentWeather.current!.condition!.text!, // <-- weather text
                   style: const TextStyle(
@@ -67,55 +69,115 @@ class WeatherDetails extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                height56,
+                height32,
                 // --------------- more weather details
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image.asset(
-                      'lib/assets/images/wind_icon.png',
-                      height: 50,
-                      width: 50,
-                    ),
-                    Image.asset(
-                      'lib/assets/images/humidity_icon.png',
-                      height: 50,
-                      width: 50,
-                    ),
-                    Image.asset(
-                      'lib/assets/images/precip_icon.png',
-                      height: 50,
-                      width: 50,
-                    ),
-                  ],
-                ),
+
                 height8,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      "${currentWeather.current!.windKph!} Km\\h",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
+                    Column(
+                      children: [
+                        Image.asset(
+                          'lib/assets/images/wind_icon.png',
+                          height: 50,
+                          width: 50,
+                        ),
+                        Text(
+                          "${currentWeather.current!.windKph!} Km\\h",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "${currentWeather.current!.humidity!} %",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
+                    Column(
+                      children: [
+                        Image.asset(
+                          'lib/assets/images/humidity_icon.png',
+                          height: 50,
+                          width: 50,
+                        ),
+                        Text(
+                          "${currentWeather.current!.humidity!} %",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "${currentWeather.current!.precipIn!} inch",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
+                    Column(
+                      children: [
+                        Image.asset(
+                          'lib/assets/images/precip_icon.png',
+                          height: 50,
+                          width: 50,
+                        ),
+                        Text(
+                          "${currentWeather.current!.precipIn!} inch",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+                height56,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    children: [
+                      for (var item in currentWeather.forecast!.forecastday!)
+                        for (var weather in item.hour!)
+                          if (DateTime.parse(weather.time!).isAfter(
+                              DateTime.parse(
+                                  currentWeather.location!.localtime!)))
+                            Container(
+                              margin: const EdgeInsets.only(left: 12),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 20),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  // border: Border.all(
+                                  //   color: const Color.fromARGB(
+                                  //       127, 255, 255, 255),
+                                  // ),
+                                  gradient: const LinearGradient(colors: [
+                                    Color.fromARGB(117, 255, 255, 255),
+                                    Color.fromARGB(42, 255, 255, 255)
+                                  ], begin: Alignment.topLeft)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(weather.time!.substring(11),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      )),
+                                  SizedBox(
+                                      width: 50,
+                                      child: getWeatherImage(
+                                          weather.condition!.code!,
+                                          weather.isDay!)),
+                                  Text(
+                                    weather.tempC.toString(),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            )
+                    ],
+                  ),
+                )
               ],
             ),
           ),

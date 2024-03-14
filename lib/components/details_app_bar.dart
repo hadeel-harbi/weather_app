@@ -35,15 +35,21 @@ class DetailsAppBar extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Data.weatherOfCities.add(currentWeather);
+              if (Data.weatherOfCities.contains(currentWeather)) {
+                Data.weatherOfCities.remove(currentWeather);
+              } else {
+                Data.weatherOfCities.add(currentWeather);
+              }
               context
                   .findRootAncestorStateOfType<HomePageState>()
                   // ignore: invalid_use_of_protected_member
                   ?.setState(() {});
               context.pushPage(const HomePage());
             },
-            child: const Icon(
-              Icons.favorite_border,
+            child: Icon(
+              Data.weatherOfCities.contains(currentWeather)
+                  ? Icons.favorite
+                  : Icons.favorite_border,
               color: Colors.white,
             ),
           ),

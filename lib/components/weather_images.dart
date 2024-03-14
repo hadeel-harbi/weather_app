@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../models/weather.dart';
 
-Widget getWeatherImage(Weather currentWeather) {
+Widget getWeatherImage(num code, num isDay) {
   String imageText = "";
 
-  switch (currentWeather.current!.condition!.code!) {
+  switch (code) {
     case 1000:
-      currentWeather.current!.isDay! == 1
-          ? imageText = "sunny"
-          : imageText = "Clear";
+      isDay == 1 ? imageText = "sunny" : imageText = "Clear";
       break;
     case 1003:
-      currentWeather.current!.isDay! == 1
+      isDay == 1
           ? imageText = "Partly_cloudy_day"
           : imageText = "Partly_cloudy_night";
       break;
@@ -40,9 +38,7 @@ Widget getWeatherImage(Weather currentWeather) {
       imageText = "Snowy";
       break;
     default:
-      currentWeather.current!.isDay! == 1
-          ? imageText = "sunny"
-          : imageText = "Clear";
+      isDay == 1 ? imageText = "sunny" : imageText = "Clear";
   }
 
   return Image.asset('lib/assets/images/$imageText.png');
